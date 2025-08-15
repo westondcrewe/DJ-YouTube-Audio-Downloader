@@ -1,9 +1,11 @@
 yt_cookies.txt
-downloads
 downloads/*
-tests
+downloads
 tests/*
-songs
+tests
 songs/*
-urls
+songs
+screenshots/*
+screenshots
 urls/*
+urls

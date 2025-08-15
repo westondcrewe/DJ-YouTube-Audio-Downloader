@@ -5,10 +5,11 @@ import argparse
 def get_first_youtube_result(query):
     ydl_opts = {'quiet': True, 'skip_download': True}
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(f"ytsearch1:{query}", download=False)
+        info = ydl.extract_info(f"ytsearch1:{query} official audio -live -cover", download=False)
         if "entries" in info and len(info["entries"]) > 0:
             return info["entries"][0]["webpage_url"]
     return None
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -1,29 +1,44 @@
-from PIL import Image
+from PIL import Image, ImageEnhance, ImageFilter
 import pytesseract
-import datetime
-import argparse
 import re
+import argparse
+import datetime
 
 def ocr_playlist_image(image_path):
-    # Load image
-    img = Image.open(image_path)
+    img = Image.open(image_path).convert('L')
+    img = img.filter(ImageFilter.MedianFilter())
+    img = ImageEnhance.Contrast(img).enhance(2)
 
-    # Run OCR - you can experiment with psm and oem modes for better results
-    # psm 6 = Assume a single uniform block of text
-    text = pytesseract.image_to_string(img, config='--psm 6')
+    data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)
 
-    lines = [line.strip() for line in text.split('\n') if line.strip()]
-    
+    rows = {}
+    for i, word in enumerate(data['text']):
+        if int(data['conf'][i]) < 50 or not word.strip():
+            continue  # skip low-confidence or empty words
+        top = data['top'][i]
+        left = data['left'][i]
+        if top not in rows:
+            rows[top] = []
+        rows[top].append((left, word.strip()))
+
+    # Process rows: separate left/right
     songs = []
-    # Simple heuristic: pair every two lines as Title + Artist
-    for i in range(0, len(lines)-1, 2):
-        title = lines[i]
-        if re.findall("\s(E|G|F|H)\s", title) is False:
-            re.sub("\s(E|G|F|H)\s", "", title)
+    for top in sorted(rows.keys()):
+        words = rows[top]
+        # Sort words by X position
+        words.sort(key=lambda x: x[0])
+        # Split left/right roughly by midpoint of image
+        midpoint = img.width // 2
+        title = " ".join(w for l, w in words if l < midpoint)
+        artist = " ".join(w for l, w in words if l >= midpoint)
 
-        artist = lines[i+1]
-        print(title, artist)
-        songs.append(f"{title} | {artist}\n")
+        # Clean stray characters
+        title = re.sub(r"\s(E|G|F|H)\s", "", title)
+        artist = re.sub(r"\s(E|G|F|H)\s", "", artist)
+
+        if title and artist:
+            songs.append(f"{title} - {artist}")
+            print(f"{title} - {artist}")
 
     return songs
 

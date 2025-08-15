@@ -35,12 +35,14 @@ fi
 # ===============================
 # DOWNLOAD WITH COOKIES
 # ===============================
+current_datetime=$(date +"%Y-%m-%d_%H:%M:%S")
 echo "🎵 Starting downloads from $URLS_FILE using cookies..."
 cat "$URLS_FILE" | xargs -n 1 -P $MAX_JOBS -I {} yt-dlp \
-  --format "bestaudio[ext=m4a]/bestaudio/best" \
   --extract-audio \
-  --output "downloads/%(title)s.%(ext)s" \
+  --output "downloads/$current_datetime/%(title)s.%(ext)s" \
   --no-overwrites \
+  -q \
+  --no-warnings \
   {}
 
 echo "✅ All downloads attempted."
