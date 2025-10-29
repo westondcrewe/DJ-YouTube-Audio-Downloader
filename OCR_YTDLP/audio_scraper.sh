@@ -43,6 +43,8 @@ cat "$URLS_FILE" | xargs -n 1 -P $MAX_JOBS -I {} yt-dlp \
   --no-overwrites \
   -q \
   --no-warnings \
+  --cookies "$COOKIES_FILE" \
+  --extractor-args "youtube:player_client=android" \
   {}
 
 echo "✅ All downloads attempted."
