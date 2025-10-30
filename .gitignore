@@ -9,4 +9,4 @@ screenshots/*
 screenshots
 urls/*
 urls
-GPT_API/.env
+move_downloads.sh
