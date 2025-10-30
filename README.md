@@ -2,6 +2,9 @@
 
 Automatically extract song information from playlist screenshots and download audio files from YouTube. Built for DJs who want to quickly build their library from setlists without manually searching and downloading each track.
 
+## Demo Video
+![Watch the Demo Video Here!](djsetlistdownlaoderdemosped.gif)
+
 ## What It Does
 
 1. **OCR Extraction** - Reads song titles and artists from playlist screenshots
@@ -109,7 +112,7 @@ Output: `urls/urls_YYYY-MM-DD_HH:MM:SS.txt`
 ```
 Output: MP3 files in `downloads/`
 
-## ⚙️ Configuration
+## Configuration
 
 ### Adjust Search Delay (Avoid Rate Limiting)
 ```bash
@@ -192,7 +195,7 @@ All output files are timestamped to preserve history:
 - `urls/failed_2024-10-30_14:32:00.txt` - Songs that couldn't be found
 - `downloads/*.mp3` - Final audio files
 
-## ⚖️ Legal Disclaimer
+## Legal Disclaimer
 
 **This tool is for personal use only.** 
 
@@ -224,7 +227,5 @@ This project is provided as-is for educational and personal use.
 - Image processing with [Pillow](https://python-pillow.org/)
 
 ---
-
-**Tested with:** 50+ techno and house setlists from Rekordbox and Serato
 
 **Questions?** Open an issue or check the troubleshooting section above.
