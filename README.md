@@ -3,7 +3,7 @@
 Automatically extract song information from playlist screenshots and download audio files from YouTube. Built for DJs who want to quickly build their library from setlists without manually searching and downloading each track.
 
 ## Demo Video
-![Watch the Demo Video Here!](djsetlistdownlaoderdemosped.gif)
+![Watch the Demo Video Here!](djsetlistdownloaderdemosped.gif)
 
 ## What It Does
 
